@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>HH Market Radar</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="logo" aria-hidden="true"><span>HH</span></div>
+        <div>
+          <div class="eyebrow">Локальная аналитика рынка</div>
+          <h1>Market Radar</h1>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="button button-ghost" type="button" id="settingsButton">Подключение HH</button>
+        <a class="button button-ghost" href="/api/export.csv" id="exportButton">Экспорт CSV</a>
+        <button class="button button-primary" type="button" id="collectButton">
+          <span class="button-icon">↻</span>
+          <span>Обновить данные</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="hero panel">
+      <div class="hero-copy">
+        <div class="status-line">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">Подключение к локальному серверу…</span>
+        </div>
+        <h2>Спрос, конкуренция и динамика по вашим IT-позициям</h2>
+        <p>Вакансии и резюме за 30 дней, коэффициенты конкуренции и история ежедневных замеров.</p>
+        <div class="hero-meta">
+          <span class="chip" id="lastUpdated">Последний замер: —</span>
+          <span class="chip" id="browserStatus">Chrome-профиль: проверка…</span>
+          <span class="chip">Режим: браузер</span>
+          <span class="chip">Регион: Москва</span>
+        </div>
+      </div>
+      <div class="radar-stage">
+        <div class="radar-art" aria-hidden="true">
+          <div class="radar-ring ring-1"></div>
+          <div class="radar-ring ring-2"></div>
+          <div class="radar-ring ring-3"></div>
+          <div class="radar-sweep"></div>
+          <div class="radar-core"></div>
+        </div>
+        <div class="force-index-hud">
+          <span>Индекс поддержки поиска</span>
+          <strong id="searchSupportHud">—</strong>
+          <small id="searchForceStatus">Модельный показатель · истинная мощность неизвестна</small>
+          <em id="searchForceRecruiters">IT-рекрутеры: —</em>
+        </div>
+      </div>
+    </section>
+
+    <section class="config-warning panel hidden" id="configWarning">
+      <div>
+        <strong>Сначала откройте Chrome и войдите в HH</strong>
+        <span>Пароль вводится только на официальной странице hh.ru. После входа полностью закройте окно Chrome.</span>
+      </div>
+      <button class="button button-primary" type="button" id="warningSettingsButton">Подключить HH</button>
+    </section>
+
+    <section class="progress-wrap panel hidden" id="progressPanel">
+      <div class="progress-head">
+        <div>
+          <strong id="progressTitle">Собираю данные</strong>
+          <span id="progressMessage">Подготовка…</span>
+        </div>
+        <span id="progressCount">0 / 0</span>
+      </div>
+      <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+    </section>
+
+    <section class="kpi-grid" id="kpiGrid">
+      <article class="kpi-card">
+        <div class="kpi-icon cyan">V</div>
+        <div class="kpi-label">Активные вакансии</div>
+        <div class="kpi-value skeleton" data-kpi="vacancy_active_now">—</div>
+        <div class="kpi-note">Текущий запас спроса, сумма по запросам</div>
+      </article>
+      <article class="kpi-card">
+        <div class="kpi-icon blue">V30</div>
+        <div class="kpi-label">Новые вакансии за 30 дней</div>
+        <div class="kpi-value skeleton" data-kpi="vacancy_published_30d">—</div>
+        <div class="kpi-note">Поток спроса за выбранный период</div>
+      </article>
+      <article class="kpi-card">
+        <div class="kpi-icon violet">R</div>
+        <div class="kpi-label">Активные резюме</div>
+        <div class="kpi-value skeleton" data-kpi="resume_active_now">—</div>
+        <div class="kpi-note">Текущий запас кандидатов</div>
+      </article>
+      <article class="kpi-card">
+        <div class="kpi-icon violet">R30</div>
+        <div class="kpi-label">Новые резюме за 30 дней</div>
+        <div class="kpi-value skeleton" data-kpi="resume_active_published_30d">—</div>
+        <div class="kpi-note">Поток кандидатов за выбранный период</div>
+      </article>
+      <article class="kpi-card featured">
+        <div class="kpi-icon amber">S</div>
+        <div class="kpi-label">Средняя конкуренция STOCK</div>
+        <div class="kpi-value skeleton" data-kpi="competition_stock_average">—</div>
+        <div class="kpi-note">Активные резюме на одну активную вакансию</div>
+      </article>
+      <article class="kpi-card featured flow-card">
+        <div class="kpi-icon amber">F</div>
+        <div class="kpi-label">Средняя конкуренция FLOW</div>
+        <div class="kpi-value skeleton" data-kpi="competition_flow_average">—</div>
+        <div class="kpi-note">Новые резюме на одну новую вакансию за 30 дней</div>
+      </article>
+      <article class="kpi-card featured density-card">
+        <div class="kpi-icon density">HR‰</div>
+        <div class="kpi-label">Плотность HR-вакансий</div>
+        <div class="kpi-value skeleton" data-kpi="hr_vacancy_density">—</div>
+        <div class="kpi-note">Наблюдаемо: открытых вакансий IT-рекрутеров на 1 000 IT-вакансий</div>
+      </article>
+      <article class="kpi-card featured observed-card">
+        <div class="kpi-icon observed">OBS</div>
+        <div class="kpi-label">Наблюдаемый индекс поддержки</div>
+        <div class="kpi-value skeleton" data-kpi="observed_support_score">—</div>
+        <div class="kpi-note">100 − исторический percentile HR-плотности за 365 дней; минимум 5 замеров</div>
+      </article>
+      <article class="kpi-card featured force-card">
+        <div class="kpi-icon force">PROXY</div>
+        <div class="kpi-label">Индекс поддержки поиска</div>
+        <div class="kpi-value skeleton" data-kpi="proxy_support_index">—</div>
+        <div class="kpi-note">Модельный proxy при выбранном K; не равен числу работающих рекрутеров</div>
+      </article>
+      <article class="kpi-card featured deficit-card">
+        <div class="kpi-icon deficit">ДЕФ</div>
+        <div class="kpi-label">Индекс потребности в усилении</div>
+        <div class="kpi-value skeleton" data-kpi="proxy_deficit_index">—</div>
+        <div class="kpi-note">Модельная доля давления незакрытого спроса на рекрутеров</div>
+      </article>
+    </section>
+
+    <section class="formula-grid" aria-label="Формулы коэффициентов конкуренции">
+      <article class="formula-card stock-formula">
+        <div class="formula-tag">STOCK</div>
+        <div>
+          <strong>Конкуренция на текущем рынке</strong>
+          <span>Активные резюме ÷ активные вакансии</span>
+        </div>
+      </article>
+      <article class="formula-card flow-formula">
+        <div class="formula-tag">FLOW</div>
+        <div>
+          <strong>Конкуренция среди новых публикаций</strong>
+          <span>Новые резюме за 30 дней ÷ новые вакансии за 30 дней</span>
+        </div>
+      </article>
+      <article class="formula-card density-formula">
+        <div class="formula-tag">HR‰</div>
+        <div>
+          <strong>Наблюдаемая плотность HR-спроса</strong>
+          <span>1 000 × открытые вакансии IT-рекрутеров ÷ открытые IT-вакансии</span>
+        </div>
+      </article>
+      <article class="formula-card observed-formula">
+        <div class="formula-tag">OBS</div>
+        <div>
+          <strong>Исторически нормированный индекс</strong>
+          <span>OBS = 100 − percentile(HR‰) в скользящем окне 365 дней; до 5 замеров значение не рассчитывается</span>
+        </div>
+      </article>
+      <article class="formula-card force-formula">
+        <div class="formula-tag">PROXY</div>
+        <div>
+          <strong>Сценарная поддержка поиска</strong>
+          <span>Нужно = IT-вакансии ÷ K; давление = HR-вакансии ÷ нужно; proxy = 100 ÷ (1 + давление)</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel force-model-panel" aria-labelledby="forceModelTitle">
+      <div class="force-model-head">
+        <div>
+          <div class="eyebrow">Сценарная калибровка</div>
+          <h3 id="forceModelTitle">Нагрузка на одного рекрутера</h3>
+          <p>HH показывает опубликованный спрос на рекрутеров, но не число уже работающих специалистов. Поэтому K — сценарий одновременной нагрузки, а результат всегда помечен как proxy. Базовый сценарий: K=25; рабочий диапазон: 20–40.</p>
+        </div>
+        <label class="capacity-control">
+          <span>Вакансий на одного рекрутера</span>
+          <select id="capacitySelect" aria-label="Норма вакансий на одного рекрутера">
+            <option value="15">15 — high-touch / нишевые роли</option>
+            <option value="20">20 — сложный IT, активный сорсинг</option>
+            <option value="25">25 — базовый IT-сценарий</option>
+            <option value="30">30 — умеренно высокая нагрузка</option>
+            <option value="40">40 — стрессовый сценарий</option>
+            <option value="60">60 — массовый / автоматизированный</option>
+            <option value="100">100 — legacy-сравнение</option>
+            <option value="300">300 — конвейер первичной фильтрации</option>
+          </select>
+        </label>
+      </div>
+      <div class="force-model-grid">
+        <div class="model-stat"><span>IT-вакансии в выборке</span><strong id="modelTargetVacancies">—</strong></div>
+        <div class="model-stat density"><span>HR-вакансий на 1 000 IT</span><strong id="modelHrDensity">—</strong></div>
+        <div class="model-stat"><span>Требуемые рекрутеры при выбранном K</span><strong id="modelRequiredRecruiters">—</strong></div>
+        <div class="model-stat"><span>Диапазон потребности K=20…40</span><strong id="modelRequiredRange">—</strong></div>
+        <div class="model-stat"><span>Открытые вакансии рекрутеров</span><strong id="modelOpenRecruiterVacancies">—</strong></div>
+        <div class="model-stat"><span>Давление posted demand</span><strong id="modelRecruitingPressure">—</strong></div>
+        <div class="model-stat force"><span>Proxy-поддержка при выбранном K</span><strong id="modelForceIndex">—</strong></div>
+        <div class="model-stat deficit"><span>Proxy-потребность в усилении</span><strong id="modelDeficitIndex">—</strong></div>
+        <div class="model-stat unavailable"><span>Истинный индекс силы (нужен W)</span><strong id="modelTrueIndex">н/д</strong></div>
+      </div>
+      <div class="scenario-band-card">
+        <div class="scenario-band-head"><strong>Диапазон proxy-поддержки по K=20…40</strong><span id="modelProxyRange">—</span></div>
+        <div class="scenario-track" aria-label="Диапазон сценарного proxy-индекса">
+          <div class="scenario-range" id="scenarioRange"></div>
+          <div class="scenario-marker" id="scenarioBaseMarker" title="Базовый K=25"></div>
+        </div>
+        <div class="scenario-axis"><span>0</span><span>50</span><span>100</span></div>
+        <p>Высокий proxy означает лишь низкий видимый posted demand на рекрутеров относительно сценарной потребности. Он не доказывает высокую фактическую укомплектованность.</p>
+      </div>
+    </section>
+
+    <section class="workspace-grid">
+      <article class="panel chart-panel">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">История наблюдений</div>
+            <h3>Динамика рынка</h3>
+          </div>
+          <div class="chart-controls">
+            <select id="querySelect" aria-label="Специальность"></select>
+            <select id="metricSelect" aria-label="Показатель">
+              <option value="vacancy_active_now">Активные вакансии</option>
+              <option value="vacancy_published_30d">Новые вакансии за 30 дней</option>
+              <option value="resume_active_now">Активные резюме</option>
+              <option value="resume_active_published_30d">Новые резюме за 30 дней</option>
+              <option value="competition_stock">Конкуренция STOCK</option>
+              <option value="competition_flow">Конкуренция FLOW за 30 дней</option>
+            </select>
+            <select id="historyRangeSelect" aria-label="Период истории">
+              <option value="1d">Последние 24 часа</option>
+              <option value="7d">Последние 7 дней</option>
+              <option value="all" selected>Всё время</option>
+            </select>
+          </div>
+        </div>
+        <div class="chart-wrap" id="chartWrap">
+          <svg id="historyChart" viewBox="0 0 900 340" role="img" aria-label="График динамики"></svg>
+          <div class="chart-empty hidden" id="chartEmpty">Для графика нужны замеры хотя бы за две даты.</div>
+        </div>
+        <div class="chart-legend">
+          <span><i></i><b id="chartLegend">Показатель</b></span>
+          <small>Наведите курсор на точку, чтобы увидеть значение</small>
+        </div>
+      </article>
+
+      <aside class="panel insight-panel">
+        <div class="eyebrow">Быстрый вывод</div>
+        <h3>Радар конкуренции</h3>
+        <div id="insights" class="insights"></div>
+        <div class="notice">
+          Результаты разных запросов могут пересекаться. Общие суммы показывают масштаб, но не число уникальных вакансий или резюме.
+        </div>
+      </aside>
+    </section>
+
+    <section class="panel pulse-panel" aria-labelledby="pulseTitle">
+      <div class="section-head pulse-head">
+        <div>
+          <div class="eyebrow">Сопоставление всей истории</div>
+          <h3 id="pulseTitle">Пульс рынка и recruiting-support</h3>
+        </div>
+        <div class="chart-controls pulse-controls">
+          <select id="pulseScopeSelect" aria-label="Срез аналитики">
+            <option value="market">Вся IT-выборка</option>
+            <option value="hr">HR / IT-рекрутинг</option>
+          </select>
+          <select id="pulseRangeSelect" aria-label="Период пульса">
+            <option value="1d">Последние 24 часа</option>
+            <option value="7d">Последние 7 дней</option>
+            <option value="all" selected>Всё время</option>
+          </select>
+        </div>
+      </div>
+
+      <p class="pulse-intro">
+        Сравнение вакансий, резюме, STOCK, FLOW, наблюдаемой HR-плотности и модельного proxy-индекса на одной относительной шкале.
+        Первый доступный замер выбранного периода равен 100 — так видны совместные подъёмы и просадки,
+        а реальные значения доступны в точках графика.
+      </p>
+
+      <div class="pulse-latest" id="pulseLatest"></div>
+      <div class="series-toggles" id="pulseSeriesToggles" aria-label="Линии графика"></div>
+
+      <div class="pulse-chart-wrap">
+        <svg id="pulseChart" viewBox="0 0 1100 430" role="img" aria-label="Сравнительный график пульса рынка и HR"></svg>
+        <div class="chart-empty hidden" id="pulseEmpty">Для сравнения нужны сохранённые замеры.</div>
+      </div>
+
+      <div class="pulse-foot">
+        <span id="pulseCoverageNote">Связь рассчитывается только по доступным совпадающим или лагированным замерам.</span>
+        <small>Корреляция не доказывает причинность; для короткой истории результат нестабилен.</small>
+      </div>
+
+      <div class="correlation-section">
+        <div class="correlation-title">
+          <div><strong>Корреляция с индексом поддержки</strong><span>При достаточной истории используется OBS, иначе сценарный PROXY; Spearman выбран по умолчанию</span></div>
+          <div class="correlation-controls">
+            <select id="correlationMethodSelect" aria-label="Метод корреляции">
+              <option value="spearman" selected>Spearman</option>
+              <option value="pearson">Pearson</option>
+            </select>
+            <select id="correlationLagSelect" aria-label="Лаг корреляции">
+              <option value="0" selected>Лаг 0 дней</option>
+              <option value="7">Proxy опережает на 7 дней</option>
+              <option value="14">Proxy опережает на 14 дней</option>
+              <option value="30">Proxy опережает на 30 дней</option>
+            </select>
+          </div>
+        </div>
+        <div class="correlation-grid" id="pulseCorrelations"></div>
+      </div>
+    </section>
+
+    <section class="positions-section">
+      <div class="section-head positions-head">
+        <div>
+          <div class="eyebrow">Последний замер</div>
+          <h3>Позиции</h3>
+        </div>
+        <label class="search-box">
+          <span>⌕</span>
+          <input id="positionSearch" type="search" placeholder="Фильтр по названию">
+        </label>
+      </div>
+      <div class="position-grid" id="positionGrid"></div>
+      <div class="empty-state hidden" id="emptyState">
+        <div class="empty-icon">↻</div>
+        <h3>Данных пока нет</h3>
+        <p>Сначала подключите HH через Chrome, затем нажмите «Обновить данные».</p>
+        <button class="button button-primary" type="button" id="emptyCollectButton">Выполнить первый сбор</button>
+      </div>
+    </section>
+
+    <section class="panel error-panel hidden" id="errorPanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Диагностика</div>
+          <h3>Предупреждения браузерного сбора</h3>
+        </div>
+      </div>
+      <div id="errorList"></div>
+    </section>
+
+    <footer>
+      <span>analitikhhru · данные хранятся локально в SQLite</span>
+      <span>Сервер доступен только на 127.0.0.1</span>
+    </footer>
+  </main>
+
+  <div class="modal-backdrop hidden" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <section class="settings-modal panel">
+      <div class="modal-head">
+        <div>
+          <div class="eyebrow">Локальное подключение к HeadHunter</div>
+          <h3 id="settingsTitle">Вход через Chrome</h3>
+        </div>
+        <button class="icon-button" type="button" id="closeSettingsButton" aria-label="Закрыть">×</button>
+      </div>
+
+      <div class="settings-note">
+        Программа не запрашивает и не хранит логин или пароль. Она открывает отдельный профиль Chrome. Войдите в hh.ru вручную, пройдите код или капчу при необходимости и полностью закройте окно браузера.
+      </div>
+
+      <div class="browser-steps">
+        <div class="browser-step"><span>1</span><div><strong>Открыть Chrome для входа</strong><small>Откроется обычное окно hh.ru. Введите логин и пароль только там.</small></div></div>
+        <div class="browser-step"><span>2</span><div><strong>Закрыть Chrome после входа</strong><small>Сессия сохранится локально в отдельной папке проекта.</small></div></div>
+        <div class="browser-step"><span>3</span><div><strong>Проверить подключение</strong><small>Программа откроет поисковые страницы и попробует прочитать только итоговые количества.</small></div></div>
+      </div>
+
+      <div class="redirect-box">
+        <span>Локальный профиль браузера</span>
+        <code id="profilePathValue">data\hh-browser-profile</code>
+      </div>
+
+      <div class="settings-actions">
+        <button class="button button-primary" type="button" id="openLoginButton">Открыть Chrome для входа</button>
+        <button class="button button-ghost" type="button" id="diagnosticsButton">Проверить подключение</button>
+        <button class="button button-danger" type="button" id="clearProfileButton">Сбросить профиль</button>
+      </div>
+
+      <div class="diagnostics-results hidden" id="diagnosticsResults"></div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+</html>

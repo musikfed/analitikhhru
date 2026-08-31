@@ -1,0 +1,16 @@
+[project]
+name = "analitikhhru"
+version = "1.9.0"
+description = "Локальная веб-аналитика вакансий и резюме HeadHunter через Chrome"
+readme = "README.md"
+requires-python = ">=3.12,<3.15"
+dependencies = [
+    "flask>=3.1,<4",
+    "playwright>=1.55,<2",
+    "python-dotenv>=1.1,<2",
+    "requests>=2.32.4,<3",
+    "waitress>=3.0,<4",
+]
+
+[tool.uv]
+package = false

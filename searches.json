@@ -1,0 +1,47 @@
+{
+  "queries": [
+    {
+      "id": "devops",
+      "label": "DevOps-инженер",
+      "text": "DevOps-инженер",
+      "area": "1"
+    },
+    {
+      "id": "sre",
+      "label": "SRE / Site Reliability Engineer",
+      "text": "SRE",
+      "area": "1"
+    },
+    {
+      "id": "sysadmin_1c",
+      "label": "Ведущий системный администратор 1С",
+      "text": "Ведущий системный администратор 1С",
+      "area": "1"
+    },
+    {
+      "id": "infra_architect",
+      "label": "Инфраструктурный архитектор",
+      "text": "Инфраструктурный архитектор",
+      "area": "1"
+    },
+    {
+      "id": "system_architect",
+      "label": "Системный архитектор",
+      "text": "Системный архитектор",
+      "area": "1"
+    },
+    {
+      "id": "head_infra",
+      "label": "Руководитель IT-инфраструктуры",
+      "text": "Руководитель IT-инфраструктуры",
+      "area": "1"
+    }
+  ],
+  "search_force": {
+    "id": "it_recruiting_power",
+    "label": "IT-рекрутеры и специалисты по техническому подбору",
+    "text": "NAME:(\"IT-рекрутер\" OR \"IT recruiter\" OR \"Technical Recruiter\" OR \"Tech Recruiter\" OR \"рекрутер по подбору IT-персонала\" OR \"менеджер по подбору IT-персонала\" OR \"IT-сорсер\" OR \"IT sourcer\" OR \"Technical Sourcer\" OR \"Talent Acquisition Specialist\")",
+    "area": "1",
+    "vacancies_per_recruiter": 40
+  }
+}
