@@ -230,3 +230,9 @@ STOCK, FLOW, HR Density, OBS и сценарный PROXY. Первый дост�
 Сырые counts в SQLite сохраняются. При запуске и смене K пересчитываются только производные
 показатели. Старые столбцы `search_force_index` и `search_resource_deficit_index` сохранены как
 совместимые aliases новых proxy-полей, поэтому прежняя база мигрирует без удаления истории.
+
+## Contact / Контакты
+
+- Email: [feudor.lab@yandex.ru](mailto:feudor.lab@yandex.ru)
+- Telegram: [@Feudorlab1](https://t.me/Feudorlab1)
+
