@@ -247,3 +247,10 @@ STOCK, FLOW, HR Density, OBS и сценарный PROXY. Первый дост�
 ![Connection preview](docs/screenshots/connection-preview.svg)
 
 > These are generated documentation previews, not live screenshots. / Это сгенерированные превью документации, а не снимки работающей сессии.
+
+
+## Visual project showcase · 11 languages
+
+[**Architecture and multilingual presentation**](docs/showcase/README.md)
+
+![analitikhhru architecture](docs/showcase/overview.svg)
