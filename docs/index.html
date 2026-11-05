@@ -1,6 +1,361 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HH Analytics — Аналитика вакансий и резюме | PegiNelab</title><meta name="description" content="Локальная панель агрегированных данных HH.ru, работающая через браузер пользователя."><meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://musikfed.github.io/analitikhhru/"><style>
-:root{--accent:#87b5e4;--bg:#0a131d;color:#f1eee8;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,sans-serif}*{box-sizing:border-box}body{margin:0}header{padding:23px clamp(20px,5vw,70px);border-bottom:1px solid #65718044;display:flex;gap:25px;justify-content:space-between;align-items:center}a{color:inherit;text-decoration:none}header strong{letter-spacing:.15em;color:var(--accent)}header a{font-size:13px}main{max-width:1340px;margin:auto;padding:clamp(22px,5vw,75px)}.eyebrow{font-size:12px;letter-spacing:.2em;color:var(--accent);font-weight:700}h1{font:400 clamp(50px,7.5vw,100px)/1 Georgia,serif;letter-spacing:-.04em;margin:20px 0}h2{font:400 clamp(27px,4vw,46px) Georgia,serif}p{line-height:1.7;color:#b9c9d3;font-size:18px}.hero{display:grid;grid-template-columns:1fr 1.25fr;align-items:center;gap:38px}.screen{background:#121d28;border:1px solid #526372;border-radius:13px;overflow:hidden;box-shadow:0 28px 80px #0006}.screen img{display:block;width:100%;height:auto;object-fit:contain}.screen-caption{font-size:13px;color:#d9bf9f;border-top:1px solid #3e5260;padding:14px}.buttons{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0}.buttons a{border:1px solid var(--accent);border-radius:7px;padding:14px 17px;color:var(--accent);font-size:14px}.buttons a:first-child{background:var(--accent);color:var(--bg);font-weight:bold}.tags{display:flex;gap:10px;flex-wrap:wrap;margin:28px 0}.tags span{padding:8px 12px;border:1px solid #384b5b;background:#142434;border-radius:6px;font-size:12px}.more{border-top:1px solid #3b4c59;margin:70px 0 40px;padding:42px 0;display:grid;grid-template-columns:1fr 1fr;gap:42px}.second{width:100%;height:auto;max-height:510px;object-fit:contain;border:1px solid #3c5160;border-radius:12px;background:#101b27}footer{padding:20px 6vw 34px;color:#90a7b6;font-size:13px;border-top:1px solid #384753}footer a{color:var(--accent)}@media(max-width:900px){.hero,.more{grid-template-columns:1fr}}@media(max-width:600px){header{flex-wrap:wrap}} 
-</style></head><body><header><a href="https://peginelab.ru/"><strong>✦ PEGINELAB</strong></a><a href="https://github.com/musikfed/analitikhhru">GITHUB / analitikhhru</a></header>
-<main><section class="hero"><div><div class="eyebrow">LABOR MARKET · LOCAL ANALYTICS</div><h1>HH Analytics</h1><h2 style="color:var(--accent)">Аналитика вакансий и резюме</h2><p>Локальная панель агрегированных данных HH.ru, работающая через браузер пользователя.</p><p style="font-size:13px;color:#ecce9d">Экспериментальный локальный инструмент</p><div class="buttons"><a href="https://github.com/musikfed/analitikhhru">Исходники и инструкции ↗</a><a href="https://musikfed.github.io/view_my_prj/projects/analitikhhru/">Переводы · 11 языков</a></div><div class="tags"><span>Python</span><span>Browser</span><span>Analytics</span></div></div><div class="screen"><img src="https://raw.githubusercontent.com/musikfed/analitikhhru/main/docs/screenshots/dashboard-preview.svg" alt="Оригинальная иллюстрация или скриншот, включённый в исходный репозиторий analitikhhru"><div class="screen-caption">Источник в репозитории: docs/screenshots/dashboard-preview.svg. Изображение не является видеотрансляцией действующего устройства.</div></div></section>
-<section class="more"><div><div class="eyebrow">ORIGINAL CODE / UI REFERENCE</div><h2>Сделано под собственную задачу</h2><p>Локальная панель агрегированных данных HH.ru, работающая через браузер пользователя.</p><p>Эта публичная страница построена на существующих интерфейсах и материалах analitikhhru. Сама программа устанавливается отдельно; GitHub Pages не запускает Flask, Linux, оборудование или WinAPI.</p></div><img class="second" src="https://raw.githubusercontent.com/musikfed/analitikhhru/main/docs/screenshots/connection-preview.svg" alt="Другой экран из исходного проекта analitikhhru" loading="lazy"></section>
-<section><h2>Контакты</h2><div class="buttons"><a href="https://t.me/Feudorlab1">@Feudorlab1</a><a href="mailto:feudor.lab@yandex.ru">feudor.lab@yandex.ru</a><a href="mailto:obzorniky@gmail.com">obzorniky@gmail.com</a><a href="tel:+79260411145">+7 926 041 1145</a><a href="https://peginelab.ru/">peginelab.ru</a></div></section></main><footer>© PegiNelab · analitikhhru · <a href="https://musikfed.github.io/view_my_prj/">Независимая галерея проектов</a></footer></body></html>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>HH Market Radar — реальная панель / архивный просмотр</title><meta name="description" content="Интерактивная read-only демонстрация HH Market Radar на исходной HTML/CSS-разметке приложения. Показатели из архивных снимков 2026 года."><link rel="canonical" href="https://musikfed.github.io/analitikhhru/">
+  <link rel="stylesheet" href="./assets/app.css">
+</head>
+<body class="snapshot-demo"><div class="snapshot-banner"><strong>АРХИВНАЯ ПРЕЗЕНТАЦИЯ · НЕ LIVE HH</strong><span>Числа перенесены с пользовательских снимков 30.07 и 31.08.2026 · браузер и локальный API не подключены</span><a href="https://github.com/musikfed/analitikhhru">Исходный код ↗</a></div>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="logo" aria-hidden="true"><span>HH</span></div>
+        <div>
+          <div class="eyebrow">Локальная аналитика рынка</div>
+          <h1>Market Radar</h1>
+        </div>
+      </div>
+      <div class="top-actions"><a class="button button-ghost" href="#overview">Обзор</a><a class="button button-ghost" href="#capacity">Нагрузка HR</a><a class="button button-primary" href="#pulse">Пульс рынка</a></div></header>
+
+    <section class="hero panel" id="overview">
+      <div class="hero-copy">
+        <div class="status-line">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">Подключение к локальному серверу…</span>
+        </div>
+        <h2>Спрос, конкуренция и динамика по вашим IT-позициям</h2>
+        <p>Вакансии и резюме за 30 дней, коэффициенты конкуренции и история ежедневных замеров.</p>
+        <div class="hero-meta">
+          <span class="chip" id="lastUpdated">Последний замер: —</span>
+          <span class="chip" id="browserStatus">Chrome-профиль: проверка…</span>
+          <span class="chip">Режим: браузер</span>
+          <span class="chip">Регион: Москва</span>
+        </div>
+      </div>
+      <div class="radar-stage">
+        <div class="radar-art" aria-hidden="true">
+          <div class="radar-ring ring-1"></div>
+          <div class="radar-ring ring-2"></div>
+          <div class="radar-ring ring-3"></div>
+          <div class="radar-sweep"></div>
+          <div class="radar-core"></div>
+        </div>
+        <div class="force-index-hud">
+          <span>Индекс поддержки поиска</span>
+          <strong id="searchSupportHud">—</strong>
+          <small id="searchForceStatus">Модельный показатель · истинная мощность неизвестна</small>
+          <em id="searchForceRecruiters">IT-рекрутеры: —</em>
+        </div>
+      </div>
+    </section>
+
+    <section class="config-warning panel hidden" id="configWarning">
+      <div>
+        <strong>Сначала откройте Chrome и войдите в HH</strong>
+        <span>Пароль вводится только на официальной странице hh.ru. После входа полностью закройте окно Chrome.</span>
+      </div>
+      <button class="button button-primary" type="button" id="warningSettingsButton">Подключить HH</button>
+    </section>
+
+    <section class="progress-wrap panel hidden" id="progressPanel">
+      <div class="progress-head">
+        <div>
+          <strong id="progressTitle">Собираю данные</strong>
+          <span id="progressMessage">Подготовка…</span>
+        </div>
+        <span id="progressCount">0 / 0</span>
+      </div>
+      <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+    </section>
+
+    <section class="kpi-grid" id="kpiGrid">
+      <article class="kpi-card">
+        <div class="kpi-icon cyan">V</div>
+        <div class="kpi-label">Активные вакансии</div>
+        <div class="kpi-value skeleton" data-kpi="vacancy_active_now">—</div>
+        <div class="kpi-note">Текущий запас спроса, сумма по запросам</div>
+      </article>
+      <article class="kpi-card">
+        <div class="kpi-icon blue">V30</div>
+        <div class="kpi-label">Новые вакансии за 30 дней</div>
+        <div class="kpi-value skeleton" data-kpi="vacancy_published_30d">—</div>
+        <div class="kpi-note">Поток спроса за выбранный период</div>
+      </article>
+      <article class="kpi-card">
+        <div class="kpi-icon violet">R</div>
+        <div class="kpi-label">Активные резюме</div>
+        <div class="kpi-value skeleton" data-kpi="resume_active_now">—</div>
+        <div class="kpi-note">Текущий запас кандидатов</div>
+      </article>
+      <article class="kpi-card">
+        <div class="kpi-icon violet">R30</div>
+        <div class="kpi-label">Новые резюме за 30 дней</div>
+        <div class="kpi-value skeleton" data-kpi="resume_active_published_30d">—</div>
+        <div class="kpi-note">Поток кандидатов за выбранный период</div>
+      </article>
+      <article class="kpi-card featured">
+        <div class="kpi-icon amber">S</div>
+        <div class="kpi-label">Средняя конкуренция STOCK</div>
+        <div class="kpi-value skeleton" data-kpi="competition_stock_average">—</div>
+        <div class="kpi-note">Активные резюме на одну активную вакансию</div>
+      </article>
+      <article class="kpi-card featured flow-card">
+        <div class="kpi-icon amber">F</div>
+        <div class="kpi-label">Средняя конкуренция FLOW</div>
+        <div class="kpi-value skeleton" data-kpi="competition_flow_average">—</div>
+        <div class="kpi-note">Новые резюме на одну новую вакансию за 30 дней</div>
+      </article>
+      <article class="kpi-card featured density-card">
+        <div class="kpi-icon density">HR‰</div>
+        <div class="kpi-label">Плотность HR-вакансий</div>
+        <div class="kpi-value skeleton" data-kpi="hr_vacancy_density">—</div>
+        <div class="kpi-note">Наблюдаемо: открытых вакансий IT-рекрутеров на 1 000 IT-вакансий</div>
+      </article>
+      <article class="kpi-card featured observed-card">
+        <div class="kpi-icon observed">OBS</div>
+        <div class="kpi-label">Наблюдаемый индекс поддержки</div>
+        <div class="kpi-value skeleton" data-kpi="observed_support_score">—</div>
+        <div class="kpi-note">100 − исторический percentile HR-плотности за 365 дней; минимум 5 замеров</div>
+      </article>
+      <article class="kpi-card featured force-card">
+        <div class="kpi-icon force">PROXY</div>
+        <div class="kpi-label">Индекс поддержки поиска</div>
+        <div class="kpi-value skeleton" data-kpi="proxy_support_index">—</div>
+        <div class="kpi-note">Модельный proxy при выбранном K; не равен числу работающих рекрутеров</div>
+      </article>
+      <article class="kpi-card featured deficit-card">
+        <div class="kpi-icon deficit">ДЕФ</div>
+        <div class="kpi-label">Индекс потребности в усилении</div>
+        <div class="kpi-value skeleton" data-kpi="proxy_deficit_index">—</div>
+        <div class="kpi-note">Модельная доля давления незакрытого спроса на рекрутеров</div>
+      </article>
+    </section>
+
+    <section class="formula-grid" aria-label="Формулы коэффициентов конкуренции">
+      <article class="formula-card stock-formula">
+        <div class="formula-tag">STOCK</div>
+        <div>
+          <strong>Конкуренция на текущем рынке</strong>
+          <span>Активные резюме ÷ активные вакансии</span>
+        </div>
+      </article>
+      <article class="formula-card flow-formula">
+        <div class="formula-tag">FLOW</div>
+        <div>
+          <strong>Конкуренция среди новых публикаций</strong>
+          <span>Новые резюме за 30 дней ÷ новые вакансии за 30 дней</span>
+        </div>
+      </article>
+      <article class="formula-card density-formula">
+        <div class="formula-tag">HR‰</div>
+        <div>
+          <strong>Наблюдаемая плотность HR-спроса</strong>
+          <span>1 000 × открытые вакансии IT-рекрутеров ÷ открытые IT-вакансии</span>
+        </div>
+      </article>
+      <article class="formula-card observed-formula">
+        <div class="formula-tag">OBS</div>
+        <div>
+          <strong>Исторически нормированный индекс</strong>
+          <span>OBS = 100 − percentile(HR‰) в скользящем окне 365 дней; до 5 замеров значение не рассчитывается</span>
+        </div>
+      </article>
+      <article class="formula-card force-formula">
+        <div class="formula-tag">PROXY</div>
+        <div>
+          <strong>Сценарная поддержка поиска</strong>
+          <span>Нужно = IT-вакансии ÷ K; давление = HR-вакансии ÷ нужно; proxy = 100 ÷ (1 + давление)</span>
+        </div>
+      </article>
+    </section>
+
+    <section id="capacity" class="panel force-model-panel" aria-labelledby="forceModelTitle">
+      <div class="force-model-head">
+        <div>
+          <div class="eyebrow">Сценарная калибровка</div>
+          <h3 id="forceModelTitle">Нагрузка на одного рекрутера</h3>
+          <p>HH показывает опубликованный спрос на рекрутеров, но не число уже работающих специалистов. Поэтому K — сценарий одновременной нагрузки, а результат всегда помечен как proxy. Базовый сценарий: K=25; рабочий диапазон: 20–40.</p>
+        </div>
+        <label class="capacity-control">
+          <span>Вакансий на одного рекрутера</span>
+          <select id="capacitySelect" aria-label="Норма вакансий на одного рекрутера">
+            <option value="15">15 — high-touch / нишевые роли</option>
+            <option value="20">20 — сложный IT, активный сорсинг</option>
+            <option value="25">25 — базовый IT-сценарий</option>
+            <option value="30">30 — умеренно высокая нагрузка</option>
+            <option value="40">40 — стрессовый сценарий</option>
+            <option value="60">60 — массовый / автоматизированный</option>
+            <option value="100">100 — legacy-сравнение</option>
+            <option value="300">300 — конвейер первичной фильтрации</option>
+          </select>
+        </label>
+      </div>
+      <div class="force-model-grid">
+        <div class="model-stat"><span>IT-вакансии в выборке</span><strong id="modelTargetVacancies">—</strong></div>
+        <div class="model-stat density"><span>HR-вакансий на 1 000 IT</span><strong id="modelHrDensity">—</strong></div>
+        <div class="model-stat"><span>Требуемые рекрутеры при выбранном K</span><strong id="modelRequiredRecruiters">—</strong></div>
+        <div class="model-stat"><span>Диапазон потребности K=20…40</span><strong id="modelRequiredRange">—</strong></div>
+        <div class="model-stat"><span>Открытые вакансии рекрутеров</span><strong id="modelOpenRecruiterVacancies">—</strong></div>
+        <div class="model-stat"><span>Давление posted demand</span><strong id="modelRecruitingPressure">—</strong></div>
+        <div class="model-stat force"><span>Proxy-поддержка при выбранном K</span><strong id="modelForceIndex">—</strong></div>
+        <div class="model-stat deficit"><span>Proxy-потребность в усилении</span><strong id="modelDeficitIndex">—</strong></div>
+        <div class="model-stat unavailable"><span>Истинный индекс силы (нужен W)</span><strong id="modelTrueIndex">н/д</strong></div>
+      </div>
+      <div class="scenario-band-card">
+        <div class="scenario-band-head"><strong>Диапазон proxy-поддержки по K=20…40</strong><span id="modelProxyRange">—</span></div>
+        <div class="scenario-track" aria-label="Диапазон сценарного proxy-индекса">
+          <div class="scenario-range" id="scenarioRange"></div>
+          <div class="scenario-marker" id="scenarioBaseMarker" title="Базовый K=25"></div>
+        </div>
+        <div class="scenario-axis"><span>0</span><span>50</span><span>100</span></div>
+        <p>Высокий proxy означает лишь низкий видимый posted demand на рекрутеров относительно сценарной потребности. Он не доказывает высокую фактическую укомплектованность.</p>
+      </div>
+    </section>
+
+    <section class="workspace-grid">
+      <article class="panel chart-panel">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">История наблюдений</div>
+            <h3>Динамика рынка</h3>
+          </div>
+          <div class="chart-controls">
+            <select id="querySelect" aria-label="Специальность"></select>
+            <select id="metricSelect" aria-label="Показатель">
+              <option value="vacancy_active_now">Активные вакансии</option>
+              <option value="vacancy_published_30d">Новые вакансии за 30 дней</option>
+              <option value="resume_active_now">Активные резюме</option>
+              <option value="resume_active_published_30d">Новые резюме за 30 дней</option>
+              <option value="competition_stock">Конкуренция STOCK</option>
+              <option value="competition_flow">Конкуренция FLOW за 30 дней</option>
+            </select>
+            <select id="historyRangeSelect" aria-label="Период истории">
+              <option value="1d">Последние 24 часа</option>
+              <option value="7d">Последние 7 дней</option>
+              <option value="all" selected>Всё время</option>
+            </select>
+          </div>
+        </div>
+        <div class="chart-wrap" id="chartWrap">
+          <svg id="historyChart" viewBox="0 0 900 340" role="img" aria-label="График динамики"></svg>
+          <div class="chart-empty hidden" id="chartEmpty">Для графика нужны замеры хотя бы за две даты.</div>
+        </div>
+        <div class="chart-legend">
+          <span><i></i><b id="chartLegend">Показатель</b></span>
+          <small>Наведите курсор на точку, чтобы увидеть значение</small>
+        </div>
+      </article>
+
+      <aside class="panel insight-panel">
+        <div class="eyebrow">Быстрый вывод</div>
+        <h3>Радар конкуренции</h3>
+        <div id="insights" class="insights"></div>
+        <div class="notice">
+          Результаты разных запросов могут пересекаться. Общие суммы показывают масштаб, но не число уникальных вакансий или резюме.
+        </div>
+      </aside>
+    </section>
+
+    <section id="pulse" class="panel pulse-panel" aria-labelledby="pulseTitle">
+      <div class="section-head pulse-head">
+        <div>
+          <div class="eyebrow">Сопоставление всей истории</div>
+          <h3 id="pulseTitle">Пульс рынка и recruiting-support</h3>
+        </div>
+        <div class="chart-controls pulse-controls">
+          <select id="pulseScopeSelect" aria-label="Срез аналитики">
+            <option value="market">Вся IT-выборка</option>
+            <option value="hr">HR / IT-рекрутинг</option>
+          </select>
+          <select id="pulseRangeSelect" aria-label="Период пульса">
+            <option value="1d">Последние 24 часа</option>
+            <option value="7d">Последние 7 дней</option>
+            <option value="all" selected>Всё время</option>
+          </select>
+        </div>
+      </div>
+
+      <p class="pulse-intro">
+        Сравнение вакансий, резюме, STOCK, FLOW, наблюдаемой HR-плотности и модельного proxy-индекса на одной относительной шкале.
+        Первый доступный замер выбранного периода равен 100 — так видны совместные подъёмы и просадки,
+        а реальные значения доступны в точках графика.
+      </p>
+
+      <div class="pulse-latest" id="pulseLatest"></div>
+      <div class="series-toggles" id="pulseSeriesToggles" aria-label="Линии графика"></div>
+
+      <div class="pulse-chart-wrap">
+        <svg id="pulseChart" viewBox="0 0 1100 430" role="img" aria-label="Сравнительный график пульса рынка и HR"></svg>
+        <div class="chart-empty hidden" id="pulseEmpty">Для сравнения нужны сохранённые замеры.</div>
+      </div>
+
+      <div class="pulse-foot">
+        <span id="pulseCoverageNote">Связь рассчитывается только по доступным совпадающим или лагированным замерам.</span>
+        <small>Корреляция не доказывает причинность; для короткой истории результат нестабилен.</small>
+      </div>
+
+      <div class="correlation-section">
+        <div class="correlation-title">
+          <div><strong>Корреляция с индексом поддержки</strong><span>При достаточной истории используется OBS, иначе сценарный PROXY; Spearman выбран по умолчанию</span></div>
+          <div class="correlation-controls">
+            <select id="correlationMethodSelect" aria-label="Метод корреляции">
+              <option value="spearman" selected>Spearman</option>
+              <option value="pearson">Pearson</option>
+            </select>
+            <select id="correlationLagSelect" aria-label="Лаг корреляции">
+              <option value="0" selected>Лаг 0 дней</option>
+              <option value="7">Proxy опережает на 7 дней</option>
+              <option value="14">Proxy опережает на 14 дней</option>
+              <option value="30">Proxy опережает на 30 дней</option>
+            </select>
+          </div>
+        </div>
+        <div class="correlation-grid" id="pulseCorrelations"></div>
+      </div>
+    </section>
+
+    <section class="positions-section" id="positions">
+      <div class="section-head positions-head">
+        <div>
+          <div class="eyebrow">Последний замер</div>
+          <h3>Позиции</h3>
+        </div>
+        <label class="search-box">
+          <span>⌕</span>
+          <input id="positionSearch" type="search" placeholder="Фильтр по названию">
+        </label>
+      </div>
+      <div class="position-grid" id="positionGrid"></div>
+      <div class="empty-state hidden" id="emptyState">
+        <div class="empty-icon">↻</div>
+        <h3>Данных пока нет</h3>
+        <p>Подробные результаты позиций есть только в локальной базе.</p>
+        <button class="button button-primary" type="button" id="emptyCollectButton">Выполнить первый сбор</button>
+      </div>
+    </section>
+
+    <section class="panel error-panel hidden" id="errorPanel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Диагностика</div>
+          <h3>Предупреждения браузерного сбора</h3>
+        </div>
+      </div>
+      <div id="errorList"></div>
+    </section>
+
+    <footer>
+      <span>analitikhhru · данные хранятся локально в SQLite</span>
+      <span>Публичная read-only копия; управление устройствами и доступ к HH отключены</span>
+    </footer>
+  </main>
+
+  
+  <script defer src="./assets/snapshot.js"></script>
+</body>
+</html>
