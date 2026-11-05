@@ -253,4 +253,3 @@ STOCK, FLOW, HR Density, OBS и сценарный PROXY. Первый дост�
 
 [**Architecture and multilingual presentation**](docs/showcase/README.md)
 
-![analitikhhru architecture](docs/showcase/overview.svg)
