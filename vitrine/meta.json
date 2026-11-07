@@ -19,12 +19,12 @@
   "status": "Рабочая локальная аналитика · исторические замеры",
   "repo_url": "https://github.com/musikfed/analitikhhru",
   "screenshots": [
-    "https://raw.githubusercontent.com/musikfed/analitikhhru/main/docs/screenshots/dashboard-preview.svg",
-    "https://raw.githubusercontent.com/musikfed/analitikhhru/main/docs/screenshots/connection-preview.svg",
-    "https://raw.githubusercontent.com/musikfed/analitikhhru/main/docs/screenshots/market-radar-archive.svg"
+    "vitrine/screenshots/main.png",
+    "vitrine/screenshots/history.png",
+    "vitrine/screenshots/recruiting-support.png"
   ],
   "cover": "vitrine/generated/cover.svg",
   "cover_type": "schematic-not-screenshot",
   "subtitle": "Вакансии, резюме, конкуренция и recruiting-support",
-  "screenshot_source": "source-vector-previews-until-author-images"
+  "screenshot_source": "author-provided-real-interface-captures"
 }
